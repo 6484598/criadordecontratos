@@ -853,6 +853,76 @@ footer .small {
   }
 }
 
+/* =========================================================
+   CANAIS DE CONTATO
+========================================================= */
+.canais-contato {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.canal-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  transition: all 0.25s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.canal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.canal-card.whatsapp:hover { border-color: #25d366; }
+.canal-card.email:hover { border-color: var(--primary); }
+.canal-card.formulario:hover { border-color: #f59e0b; }
+
+.canal-icone {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.canal-card h3 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.canal-info {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.canal-desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.canal-acao {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.canal-card.whatsapp .canal-acao { color: #25d366; }
+.canal-card.formulario .canal-acao { color: #f59e0b; }
+
+
 /* RESPONSIVO */
 @media (max-width: 768px) {
   .header-inner {
