@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const corpo = montarCorpoEmail(nome, email, tipo, mensagem);
         const assunto = encodeURIComponent(`[Contato Site] ${nome} — ${textoTipoDemanda(tipo)}`);
         // ⚙️ CONFIGURAR: substitua pelo seu e-mail
-        window.location.href = `mailto:contato@seusite.com.br?subject=${assunto}&body=${corpo}`;
+        window.location.href = `mailto:Pmjuridicoassesoria@gmail.com?subject=${assunto}&body=${corpo}`;
 
         setTimeout(() => {
           mostrarToast("📧 Abrimos seu app de e-mail. Configure o Formspree para receber direto no site.");
