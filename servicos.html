@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prestação de Serviços — Contratos Fácil</title>
+  <meta name="description" content="Gere um contrato de prestação de serviços gratuito. Para autônomos, consultores e empresas.">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">📄</span>
+      <div>
+        <h1>Contratos Fácil</h1>
+        <p class="subtitle">Modelos jurídicos automatizados</p>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="locacao.html">Locação</a>
+      <a href="compra-venda.html">Compra e Venda</a>
+      <a href="servicos.html" class="ativo">Serviços</a>
+      <a href="doacao.html">Doação</a>
+    </nav>
+  </div>
+</header>
+
+<!-- GERADOR -->
+<section id="gerador" class="section">
+  <div class="container">
+    <h2 class="section-title">💼 Contrato de Prestação de Serviços</h2>
+    <p class="section-sub">Para autônomos, consultores, freelancers e empresas. Conforme arts. 593 a 609 do Código Civil.</p>
+
+    <div class="dica" style="max-width: 800px; margin: 0 auto 24px;">
+      <strong>📌 Importante:</strong> Este modelo é para <b>prestação de serviços autônomos</b>, sem vínculo empregatício. Para evitar caracterização de vínculo trabalhista (art. 3º CLT), o serviço não pode ser prestado com pessoalidade obrigatória, subordinação, habitualidade absoluta e onerosidade simultâneas.
+    </div>
+
+    <!-- BARRA DE PROGRESSO -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+    </div>
+    <p class="progress-text">Passo <span id="passoAtual">1</span> de 5</p>
+
+    <div style="text-align: center; margin-bottom: 16px;">
+      <button type="button" class="btn-ghost" onclick="limparTudoServicos()">🗑️ Limpar dados salvos</button>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <form id="contratoFormSV" class="form-card">
+
+      <!-- PASSO 1: PRESTADOR -->
+      <div class="passo passo-ativo" data-passo="1">
+        <h3>👤 Dados do Prestador de Serviços</h3>
+        <p class="small">Quem vai executar o serviço.</p>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_prestador" value="pf" checked>
+          <span>Pessoa Física</span>
+          <span class="desc">Profissional autônomo, freelancer, consultor.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_prestador" value="pj">
+          <span>Pessoa Jurídica</span>
+          <span class="desc">Empresa (MEI, ME, EPP, LTDA etc.).</span>
+        </label>
+
+        <!-- Dados PF do prestador -->
+        <div id="prestador_pf" class="bloco-pessoa">
+          <div class="campo">
+            <label>Nome completo *</label>
+            <input type="text" id="prestador_pf_nome" required>
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>CPF *</label>
+              <input type="text" id="prestador_pf_cpf" placeholder="000.000.000-00" required data-validar="cpf">
+            </div>
+            <div class="campo">
+              <label>RG</label>
+              <input type="text" id="prestador_pf_rg" placeholder="00.000.000-0">
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>Estado civil</label>
+              <select id="prestador_pf_estado_civil">
+                <option value="solteiro(a)">Solteiro(a)</option>
+                <option value="casado(a)">Casado(a)</option>
+                <option value="divorciado(a)">Divorciado(a)</option>
+                <option value="viúvo(a)">Viúvo(a)</option>
+                <option value="união estável">União estável</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label>Profissão *</label>
+              <input type="text" id="prestador_pf_profissao" placeholder="Ex: designer gráfico" required>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Endereço completo *</label>
+            <input type="text" id="prestador_pf_endereco" required>
+          </div>
+        </div>
+
+        <!-- Dados PJ do prestador -->
+        <div id="prestador_pj" class="bloco-pessoa" style="display:none;">
+          <div class="campo">
+            <label>Razão social *</label>
+            <input type="text" id="prestador_pj_razao" placeholder="Ex: Silva Consultoria LTDA">
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>CNPJ *</label>
+              <input type="text" id="prestador_pj_cnpj" placeholder="00.000.000/0000-00" data-validar="cnpj">
+            </div>
+            <div class="campo">
+              <label>Inscrição Estadual / Municipal</label>
+              <input type="text" id="prestador_pj_ie" placeholder="Opcional">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Endereço da sede *</label>
+            <input type="text" id="prestador_pj_endereco">
+          </div>
+
+          <h4 style="margin-top: 20px;">Representante legal</h4>
+
+          <div class="campo">
+            <label>Nome do representante *</label>
+            <input type="text" id="prestador_pj_rep_nome">
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>CPF do representante *</label>
+              <input type="text" id="prestador_pj_rep_cpf" placeholder="000.000.000-00" data-validar="cpf">
+            </div>
+            <div class="campo">
+              <label>Cargo</label>
+              <input type="text" id="prestador_pj_rep_cargo" placeholder="Ex: sócio administrador">
+            </div>
+          </div>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoSV(1)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 2: CONTRATANTE -->
+      <div class="passo" data-passo="2">
+        <h3>👥 Dados do Contratante</h3>
+        <p class="small">Quem vai contratar e pagar pelo serviço.</p>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_contratante" value="pf" checked>
+          <span>Pessoa Física</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_contratante" value="pj">
+          <span>Pessoa Jurídica (empresa)</span>
+        </label>
+
+        <!-- Dados PF do contratante -->
+        <div id="contratante_pf" class="bloco-pessoa">
+          <div class="campo">
+            <label>Nome completo *</label>
+            <input type="text" id="contratante_pf_nome" required>
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>CPF *</label>
+              <input type="text" id="contratante_pf_cpf" placeholder="000.000.000-00" required data-validar="cpf">
+            </div>
+            <div class="campo">
+              <label>RG</label>
+              <input type="text" id="contratante_pf_rg">
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>Estado civil</label>
+              <select id="contratante_pf_estado_civil">
+                <option value="solteiro(a)">Solteiro(a)</option>
+                <option value="casado(a)">Casado(a)</option>
+                <option value="divorciado(a)">Divorciado(a)</option>
+                <option value="viúvo(a)">Viúvo(a)</option>
+                <option value="união estável">União estável</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label>Profissão</label>
+              <input type="text" id="contratante_pf_profissao">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Endereço completo *</label>
+            <input type="text" id="contratante_pf_endereco" required>
+          </div>
+        </div>
+
+        <!-- Dados PJ do contratante -->
+        <div id="contratante_pj" class="bloco-pessoa" style="display:none;">
+          <div class="campo">
+            <label>Razão social *</label>
+            <input type="text" id="contratante_pj_razao">
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>CNPJ *</label>
+              <input type="text" id="contratante_pj_cnpj" placeholder="00.000.000/0000-00" data-validar="cnpj">
+            </div>
+            <div class="campo">
+              <label>Inscrição Estadual / Municipal</label>
+              <input type="text" id="contratante_pj_ie">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Endereço da sede *</label>
+            <input type="text" id="contratante_pj_endereco">
+          </div>
+
+          <h4 style="margin-top: 20px;">Representante legal</h4>
+
+          <div class="campo">
+            <label>Nome do representante *</label>
+            <input type="text" id="contratante_pj_rep_nome">
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>CPF *</label>
+              <input type="text" id="contratante_pj_rep_cpf" placeholder="000.000.000-00" data-validar="cpf">
+            </div>
+            <div class="campo">
+              <label>Cargo</label>
+              <input type="text" id="contratante_pj_rep_cargo">
+            </div>
+          </div>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorSV(2)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoSV(2)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 3: SERVIÇO -->
+      <div class="passo" data-passo="3">
+        <h3>📋 Descrição do Serviço</h3>
+
+        <div class="campo">
+          <label>Título / Tipo do serviço *</label>
+          <input type="text" id="sv_titulo" placeholder="Ex: Desenvolvimento de website institucional" required>
+        </div>
+
+        <div class="campo">
+          <label>Descrição detalhada do serviço *</label>
+          <textarea id="sv_descricao" rows="5" placeholder="Descreva o escopo: o que será feito, entregas previstas, métodos, ferramentas, especificações técnicas..." required></textarea>
+          <p class="small">Quanto mais detalhado o escopo, menor o risco de divergências.</p>
+        </div>
+
+        <div class="campo">
+          <label>Local de execução</label>
+          <select id="sv_local">
+            <option value="remoto">Remoto / à distância</option>
+            <option value="contratante">Nas dependências do contratante</option>
+            <option value="prestador">Nas dependências do prestador</option>
+            <option value="misto">Híbrido (presencial e remoto)</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label>Entregas (opcional)</label>
+          <textarea id="sv_entregas" rows="3" placeholder="Liste produtos/entregas concretos. Ex: 1. Layout em alta resolução; 2. Site no ar; 3. Manual de uso..."></textarea>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorSV(3)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoSV(3)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 4: PRAZO E VALOR -->
+      <div class="passo" data-passo="4">
+        <h3>💰 Prazo e Valor</h3>
+
+        <h4 style="margin-top: 0;">Prazo de execução</h4>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="sv_tipo_prazo" value="determinado" checked>
+          <span>Prazo determinado (com início e fim)</span>
+          <span class="desc">Para projetos com escopo fechado.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="sv_tipo_prazo" value="indeterminado">
+          <span>Prazo indeterminado</span>
+          <span class="desc">Para serviços contínuos. Pode ser rescindido com aviso prévio.</span>
+        </label>
+
+        <div id="campos_prazo_determinado" class="grid-2">
+          <div class="campo">
+            <label>Data de início *</label>
+            <input type="date" id="sv_data_inicio" required>
+          </div>
+          <div class="campo">
+            <label>Data de término *</label>
+            <input type="date" id="sv_data_fim" required>
+          </div>
+        </div>
+
+        <div id="campos_prazo_indeterminado" style="display:none;">
+          <div class="grid-2">
+            <div class="campo">
+              <label>Data de início *</label>
+              <input type="date" id="sv_data_inicio_ind">
+            </div>
+            <div class="campo">
+              <label>Aviso prévio para rescisão</label>
+              <select id="sv_aviso_previo">
+                <option value="15">15 dias</option>
+                <option value="30" selected>30 dias</option>
+                <option value="60">60 dias</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 24px;">Valor e forma de pagamento</h4>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="sv_forma_pagamento" value="a_vista" checked>
+          <span>À vista</span>
+          <span class="desc">Pagamento integral no início ou no final do serviço.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="sv_forma_pagamento" value="parcelado">
+          <span>Parcelado (entrada + parcelas)</span>
+          <span class="desc">Sinal e pagamentos divididos.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="sv_forma_pagamento" value="mensal">
+          <span>Mensalidade fixa</span>
+          <span class="desc">Para serviços contínuos (consultoria, suporte, manutenção).</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="sv_forma_pagamento" value="por_entrega">
+          <span>Por entrega/etapa</span>
+          <span class="desc">Pagamento conforme conclusão de etapas/marcos.</span>
+        </label>
+
+        <div class="campo" style="margin-top: 16px;">
+          <label>Valor total ou mensal (R$) *</label>
+          <input type="number" id="sv_valor" placeholder="3000" min="0" step="0.01" required>
+        </div>
+
+        <!-- Campos do PARCELADO -->
+        <div id="sv_campos_parcelado" style="display:none;">
+          <div class="grid-2">
+            <div class="campo">
+              <label>Valor da entrada (R$)</label>
+              <input type="number" id="sv_entrada" placeholder="500" min="0" step="0.01">
+            </div>
+            <div class="campo">
+              <label>Número de parcelas</label>
+              <input type="number" id="sv_num_parcelas" placeholder="3" min="1" max="60">
+            </div>
+          </div>
+        </div>
+
+        <!-- Campos do MENSAL -->
+        <div id="sv_campos_mensal" style="display:none;">
+          <div class="campo">
+            <label>Dia de vencimento mensal</label>
+            <select id="sv_dia_vencimento">
+              <option value="5">Dia 5</option>
+              <option value="10" selected>Dia 10</option>
+              <option value="15">Dia 15</option>
+              <option value="20">Dia 20</option>
+              <option value="último dia útil">Último dia útil do mês</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label>Reajuste anual</label>
+            <select id="sv_reajuste">
+              <option value="">Sem reajuste</option>
+              <option value="IPCA">IPCA</option>
+              <option value="IGP-M">IGP-M</option>
+              <option value="INPC">INPC</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Campos POR ENTREGA -->
+        <div id="sv_campos_entrega" style="display:none;">
+          <div class="campo">
+            <label>Descrição das etapas e valores</label>
+            <textarea id="sv_etapas_pgto" rows="4" placeholder="Ex: 1ª etapa (50%) — entrega do briefing aprovado: R$ 1.500,00; 2ª etapa (50%) — entrega final: R$ 1.500,00"></textarea>
+          </div>
+        </div>
+
+        <div class="campo" style="margin-top: 16px;">
+          <label>Forma de pagamento</label>
+          <select id="sv_meio_pagamento">
+            <option value="PIX">PIX</option>
+            <option value="transferência bancária">Transferência bancária</option>
+            <option value="boleto bancário">Boleto bancário</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="cheque">Cheque</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label>Cidade do contrato (foro) *</label>
+          <input type="text" id="sv_cidade_foro" placeholder="Ex: São Paulo" required>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorSV(4)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoSV(4)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 5: CLÁUSULAS OPCIONAIS -->
+      <div class="passo" data-passo="5">
+        <h3>📋 Cláusulas opcionais</h3>
+        <p class="small">Marque as cláusulas que se aplicam ao seu caso.</p>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="sv_sigilo">
+          <span>Sigilo / NDA (confidencialidade)</span>
+          <span class="desc">Obriga as partes a não divulgar informações confidenciais. Recomendado para consultorias e projetos sensíveis.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="sv_propriedade_intelectual">
+          <span>Propriedade intelectual / Direitos autorais</span>
+          <span class="desc">Define a quem pertencem os resultados (textos, designs, códigos, criações).</span>
+        </label>
+
+        <div id="sv_campos_pi" style="display:none;">
+          <div class="campo">
+            <label>Os direitos sobre o resultado serão:</label>
+            <select id="sv_pi_titular">
+              <option value="contratante">Cedidos integralmente ao Contratante</option>
+              <option value="prestador">Mantidos com o Prestador (apenas licença de uso)</option>
+              <option value="compartilhados">Compartilhados (uso conjunto)</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="sv_exclusividade">
+          <span>Exclusividade do prestador</span>
+          <span class="desc">Prestador não poderá atender concorrentes durante a vigência. ⚠️ Pode aumentar o valor cobrado.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="sv_nao_concorrencia">
+          <span>Não-concorrência pós-contrato</span>
+          <span class="desc">Prestador fica impedido de concorrer com o contratante por período após o término. Deve haver remuneração proporcional.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="sv_nao_vinculo">
+          <span>Cláusula de não-vínculo empregatício</span>
+          <span class="desc">Reforça que não há subordinação, pessoalidade ou habitualidade. Recomendado especialmente em PF↔PJ.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="sv_multa_rescisoria">
+          <span>Multa rescisória personalizada</span>
+          <span class="desc">Define multa em caso de rescisão sem justa causa (padrão: 20% do valor restante).</span>
+        </label>
+
+        <div id="sv_campos_multa" style="display:none;">
+          <div class="campo">
+            <label>Multa em % do valor restante</label>
+            <select id="sv_multa_percent">
+              <option value="10">10%</option>
+              <option value="20" selected>20%</option>
+              <option value="30">30%</option>
+              <option value="50">50%</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="sv_garantia">
+          <span>Garantia / suporte pós-entrega</span>
+          <span class="desc">Prestador oferece correção de problemas em prazo após a entrega.</span>
+        </label>
+
+        <div id="sv_campos_garantia" style="display:none;">
+          <div class="campo">
+            <label>Período de garantia</label>
+            <select id="sv_garantia_dias">
+              <option value="30">30 dias</option>
+              <option value="60">60 dias</option>
+              <option value="90" selected>90 dias</option>
+              <option value="180">180 dias</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorSV(5)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="gerarContratoSV()">📄 Gerar Contrato</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- RESULTADO -->
+    <div id="resultado" class="resultado" style="display:none;">
+      <div class="resultado-header">
+        <h3>✅ Contrato gerado com sucesso!</h3>
+        <p>Confira a prévia abaixo. Você pode baixar em PDF ou Word.</p>
+      </div>
+
+      <div class="acoes-resultado">
+        <button class="btn btn-primary btn-lg" onclick="baixarPDFSV()">📄 Baixar PDF</button>
+        <button class="btn btn-outline btn-lg" onclick="baixarWordSV()">📝 Baixar Word</button>
+        <button class="btn btn-outline" onclick="imprimirSV()">🖨️ Imprimir</button>
+        <button class="btn btn-outline" onclick="novoContratoSV()">🔄 Gerar novo</button>
+      </div>
+
+      <div class="aviso-juridico">
+        <strong>⚖️ Aviso jurídico:</strong> Este modelo não substitui orientação profissional. Em caso de relação habitual e contínua entre PF e PJ, há risco de descaracterização para vínculo empregatício. Recomenda-se consulta a advogado trabalhista/empresarial em projetos de longa duração ou alto valor.
+      </div>
+
+      <div class="preview-contrato" id="previewContratoSV"></div>
+      <div class="hash-assinatura" id="hashAssinaturaSV"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© <span id="ano"></span> Contratos Fácil — Modelos jurídicos automatizados</p>
+    <p class="small">
+      ⚖️ Este site oferece modelos automatizados para preenchimento. Não constitui consultoria jurídica.
+      Para casos específicos, consulte um advogado.
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/geradores.js"></script>
+<script src="js/servicos.js"></script>
+<script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
+
+</body>
+</html>

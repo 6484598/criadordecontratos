@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Compra e Venda de Imóvel — Contratos Fácil</title>
+  <meta name="description" content="Gere um contrato de compra e venda de imóvel gratuito. Promessa ou definitivo.">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">📄</span>
+      <div>
+        <h1>Contratos Fácil</h1>
+        <p class="subtitle">Modelos jurídicos automatizados</p>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="locacao.html">Locação</a>
+      <a href="compra-venda.html" class="ativo">Compra e Venda</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="doacao.html">Doação</a>
+    </nav>
+  </div>
+</header>
+
+<!-- GERADOR -->
+<section id="gerador" class="section">
+  <div class="container">
+    <h2 class="section-title">🤝 Compra e Venda de Imóvel</h2>
+    <p class="section-sub">Gere um contrato de promessa ou compra e venda definitiva. Conforme arts. 481 a 504 do Código Civil.</p>
+
+    <div class="dica" style="max-width: 800px; margin: 0 auto 24px;">
+      <strong>⚖️ Importante:</strong> Para transferência definitiva da propriedade de imóveis acima de 30 salários mínimos, é necessária <b>escritura pública registrada em cartório</b> (art. 108 do Código Civil). Use este modelo como <b>promessa de compra e venda</b> antes da escritura, ou como contrato particular em casos permitidos por lei (financiamento bancário, imóveis abaixo do limite legal).
+    </div>
+
+    <!-- BARRA DE PROGRESSO -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+    </div>
+    <p class="progress-text">Passo <span id="passoAtual">1</span> de 5</p>
+
+    <div style="text-align: center; margin-bottom: 16px;">
+      <button type="button" class="btn-ghost" onclick="limparTudoCompraVenda()">🗑️ Limpar dados salvos</button>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <form id="contratoFormCV" class="form-card">
+
+      <!-- PASSO 1: TIPO DE CONTRATO -->
+      <div class="passo passo-ativo" data-passo="1">
+        <h3>📋 Tipo de contrato</h3>
+        <p class="small">Escolha o tipo de instrumento que melhor se aplica ao seu caso.</p>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_contrato_cv" value="promessa" checked>
+          <span>Promessa de Compra e Venda</span>
+          <span class="desc">Compromisso de comprar e vender, com pagamento parcelado ou condições futuras (ex: aprovação de financiamento). A escritura definitiva é feita depois.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_contrato_cv" value="definitivo">
+          <span>Compra e Venda Definitiva (particular)</span>
+          <span class="desc">Para casos permitidos por lei (ex: imóveis abaixo de 30 salários mínimos, financiamento bancário). Pagamento à vista ou já realizado.</span>
+        </label>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoCV(1)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 2: VENDEDORES -->
+      <div class="passo" data-passo="2">
+        <h3>👤 Vendedor(es)</h3>
+        <p class="small">Pessoa(s) que está vendendo o imóvel. Em caso de imóvel comum do casal, ambos devem assinar.</p>
+
+        <div id="vendedoresContainer">
+          <div class="pessoa-bloco" data-pessoa="vendedor-1">
+            <h4>Vendedor 1</h4>
+
+            <div class="campo">
+              <label>Nome completo *</label>
+              <input type="text" id="vendedor_1_nome" required>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>CPF *</label>
+                <input type="text" id="vendedor_1_cpf" placeholder="000.000.000-00" required data-validar="cpf">
+              </div>
+              <div class="campo">
+                <label>RG</label>
+                <input type="text" id="vendedor_1_rg" placeholder="00.000.000-0">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>Estado civil</label>
+                <select id="vendedor_1_estado_civil">
+                  <option value="solteiro(a)">Solteiro(a)</option>
+                  <option value="casado(a)">Casado(a)</option>
+                  <option value="divorciado(a)">Divorciado(a)</option>
+                  <option value="viúvo(a)">Viúvo(a)</option>
+                  <option value="união estável">União estável</option>
+                </select>
+              </div>
+              <div class="campo">
+                <label>Profissão</label>
+                <input type="text" id="vendedor_1_profissao">
+              </div>
+            </div>
+
+            <div class="campo">
+              <label>Endereço completo *</label>
+              <input type="text" id="vendedor_1_endereco" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-adicionar-pessoa" onclick="adicionarPessoaCV('vendedor')">
+          ➕ Adicionar outro vendedor (cônjuge / coproprietário)
+        </button>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorCV(2)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoCV(2)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 3: COMPRADORES -->
+      <div class="passo" data-passo="3">
+        <h3>👤 Comprador(es)</h3>
+        <p class="small">Pessoa(s) que está adquirindo o imóvel.</p>
+
+        <div id="compradoresContainer">
+          <div class="pessoa-bloco" data-pessoa="comprador-1">
+            <h4>Comprador 1</h4>
+
+            <div class="campo">
+              <label>Nome completo *</label>
+              <input type="text" id="comprador_1_nome" required>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>CPF *</label>
+                <input type="text" id="comprador_1_cpf" placeholder="000.000.000-00" required data-validar="cpf">
+              </div>
+              <div class="campo">
+                <label>RG</label>
+                <input type="text" id="comprador_1_rg" placeholder="00.000.000-0">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>Estado civil</label>
+                <select id="comprador_1_estado_civil">
+                  <option value="solteiro(a)">Solteiro(a)</option>
+                  <option value="casado(a)">Casado(a)</option>
+                  <option value="divorciado(a)">Divorciado(a)</option>
+                  <option value="viúvo(a)">Viúvo(a)</option>
+                  <option value="união estável">União estável</option>
+                </select>
+              </div>
+              <div class="campo">
+                <label>Profissão</label>
+                <input type="text" id="comprador_1_profissao">
+              </div>
+            </div>
+
+            <div class="campo">
+              <label>Endereço completo *</label>
+              <input type="text" id="comprador_1_endereco" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-adicionar-pessoa" onclick="adicionarPessoaCV('comprador')">
+          ➕ Adicionar outro comprador
+        </button>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorCV(3)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoCV(3)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 4: IMÓVEL -->
+      <div class="passo" data-passo="4">
+        <h3>🏠 Dados do Imóvel</h3>
+
+        <div class="campo">
+          <label>Endereço completo *</label>
+          <input type="text" id="imovel_cv_endereco" placeholder="Rua, número, complemento, bairro, cidade - UF" required>
+        </div>
+
+        <div class="grid-2">
+          <div class="campo">
+            <label>Tipo</label>
+            <select id="imovel_cv_tipo">
+              <option value="apartamento">Apartamento</option>
+              <option value="casa">Casa</option>
+              <option value="terreno">Terreno</option>
+              <option value="sala comercial">Sala comercial</option>
+              <option value="galpão">Galpão</option>
+              <option value="área rural">Área rural</option>
+              <option value="sobra de loteamento">Sobra de loteamento</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label>Área total (m²)</label>
+            <input type="number" id="imovel_cv_area" placeholder="Ex: 75" min="0" step="0.01">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label>Matrícula do imóvel *</label>
+          <input type="text" id="imovel_cv_matricula" placeholder="Ex: matrícula nº 12345 do CRI da Comarca de São Paulo" required>
+          <p class="small">Identificação registral. Se for transcrição (sistema antigo), informe o número da transcrição.</p>
+        </div>
+
+        <div class="campo">
+          <label>Descrição do imóvel</label>
+          <textarea id="imovel_cv_descricao" rows="3" placeholder="Ex: Apartamento de 2 quartos, sala, cozinha americana, 1 banheiro, área de serviço, 1 vaga de garagem, no 5º andar do Edifício..."></textarea>
+        </div>
+
+        <div class="campo">
+          <label>Inscrição IPTU (opcional)</label>
+          <input type="text" id="imovel_cv_iptu" placeholder="Ex: 123.456.7890-1">
+        </div>
+
+        <div class="dica">
+          <strong>📌 Diligências recomendadas:</strong> Antes de assinar, peça certidão atualizada da matrícula (verificar ônus, hipotecas, ações), certidões dos vendedores (cíveis, fiscais, trabalhistas) e comprovante de quitação de IPTU e condomínio.
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorCV(4)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoCV(4)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 5: PREÇO E CONDIÇÕES -->
+      <div class="passo" data-passo="5">
+        <h3>💰 Preço e Condições de Pagamento</h3>
+
+        <div class="campo">
+          <label>Valor total do imóvel (R$) *</label>
+          <input type="number" id="valor_total_cv" placeholder="500000" min="0" step="0.01" required>
+        </div>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="forma_pagamento_cv" value="a_vista" checked>
+          <span>À vista</span>
+          <span class="desc">Pagamento integral no ato da assinatura ou em data definida.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="forma_pagamento_cv" value="parcelado">
+          <span>Parcelado (entrada + parcelas)</span>
+          <span class="desc">Sinal/entrada na assinatura e o restante em parcelas mensais.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="forma_pagamento_cv" value="financiamento">
+          <span>Com financiamento bancário</span>
+          <span class="desc">Sinal pago à vista, restante quitado pelo banco diretamente ao vendedor após aprovação do financiamento.</span>
+        </label>
+
+        <!-- Campos do PARCELADO -->
+        <div id="campos_parcelado" style="display:none; margin-top: 16px;">
+          <div class="grid-2">
+            <div class="campo">
+              <label>Valor da entrada (R$)</label>
+              <input type="number" id="valor_entrada" placeholder="100000" min="0" step="0.01">
+            </div>
+            <div class="campo">
+              <label>Número de parcelas</label>
+              <input type="number" id="num_parcelas" placeholder="60" min="1" max="360">
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="campo">
+              <label>Valor de cada parcela (R$)</label>
+              <input type="number" id="valor_parcela" placeholder="6700" min="0" step="0.01">
+            </div>
+            <div class="campo">
+              <label>Dia de vencimento</label>
+              <select id="dia_vencimento_cv">
+                <option value="5">Dia 5</option>
+                <option value="10" selected>Dia 10</option>
+                <option value="15">Dia 15</option>
+                <option value="20">Dia 20</option>
+                <option value="25">Dia 25</option>
+              </select>
+            </div>
+          </div>
+          <div class="campo">
+            <label>Índice de correção das parcelas</label>
+            <select id="indice_correcao_cv">
+              <option value="">Sem correção</option>
+              <option value="IPCA">IPCA</option>
+              <option value="IGP-M">IGP-M</option>
+              <option value="INCC">INCC (Índice da construção)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Campos do FINANCIAMENTO -->
+        <div id="campos_financiamento" style="display:none; margin-top: 16px;">
+          <div class="grid-2">
+            <div class="campo">
+              <label>Valor do sinal (R$)</label>
+              <input type="number" id="valor_sinal_fin" placeholder="50000" min="0" step="0.01">
+            </div>
+            <div class="campo">
+              <label>Banco/Instituição</label>
+              <input type="text" id="banco_fin" placeholder="Ex: Caixa Econômica Federal">
+            </div>
+          </div>
+          <div class="campo">
+            <label>Prazo para aprovação do financiamento</label>
+            <select id="prazo_fin">
+              <option value="30">30 dias</option>
+              <option value="60" selected>60 dias</option>
+              <option value="90">90 dias</option>
+              <option value="120">120 dias</option>
+            </select>
+            <p class="small">Se não for aprovado nesse prazo, o contrato pode ser rescindido com devolução do sinal.</p>
+          </div>
+        </div>
+
+        <div class="campo" style="margin-top: 24px;">
+          <label>Forma de pagamento (sinal/à vista)</label>
+          <select id="meio_pagamento_cv">
+            <option value="PIX">PIX</option>
+            <option value="transferência bancária (TED/DOC)">Transferência bancária</option>
+            <option value="cheque administrativo">Cheque administrativo</option>
+            <option value="dinheiro">Dinheiro</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label>Data de entrega das chaves *</label>
+          <input type="date" id="data_entrega_cv" required>
+          <p class="small">Quando o comprador receberá a posse efetiva do imóvel.</p>
+        </div>
+
+        <div class="campo">
+          <label>Cidade do contrato (foro) *</label>
+          <input type="text" id="cidade_foro_cv" placeholder="Ex: São Paulo" required>
+        </div>
+
+        <h3 style="margin-top: 32px;">📋 Cláusulas opcionais</h3>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="cv_arrependimento">
+          <span>Cláusula de arrependimento</span>
+          <span class="desc">Permite que qualquer parte desista do negócio mediante perda do sinal (vendedor) ou devolução em dobro (comprador) — art. 420 CC.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="cv_imissao_posse">
+          <span>Imissão imediata na posse</span>
+          <span class="desc">Comprador toma posse na assinatura, mesmo antes do pagamento total.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="cv_evicao">
+          <span>Cláusula de evicção reforçada</span>
+          <span class="desc">Vendedor responde por eventual perda do imóvel decorrente de direito anterior de terceiro.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="cv_corretagem">
+          <span>Pagamento de corretagem</span>
+          <span class="desc">Inclui menção a comissão de corretor.</span>
+        </label>
+
+        <div id="campos_corretagem" style="display:none;">
+          <div class="grid-2">
+            <div class="campo">
+              <label>Nome do corretor / imobiliária</label>
+              <input type="text" id="cv_corretor_nome">
+            </div>
+            <div class="campo">
+              <label>Valor (R$ ou %)</label>
+              <input type="text" id="cv_corretor_valor" placeholder="Ex: R$ 30.000 ou 6%">
+            </div>
+          </div>
+          <div class="campo">
+            <label>Quem paga?</label>
+            <select id="cv_corretor_pagador">
+              <option value="vendedor">Vendedor</option>
+              <option value="comprador">Comprador</option>
+              <option value="ambos">Ambos (50%/50%)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorCV(5)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="gerarContratoCV()">📄 Gerar Contrato</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- RESULTADO -->
+    <div id="resultado" class="resultado" style="display:none;">
+      <div class="resultado-header">
+        <h3>✅ Contrato gerado com sucesso!</h3>
+        <p>Confira a prévia abaixo. Você pode baixar em PDF ou Word.</p>
+      </div>
+
+      <div class="acoes-resultado">
+        <button class="btn btn-primary btn-lg" onclick="baixarPDFCV()">📄 Baixar PDF</button>
+        <button class="btn btn-outline btn-lg" onclick="baixarWordCV()">📝 Baixar Word</button>
+        <button class="btn btn-outline" onclick="imprimirCV()">🖨️ Imprimir</button>
+        <button class="btn btn-outline" onclick="novoContratoCV()">🔄 Gerar novo</button>
+      </div>
+
+      <div class="aviso-juridico">
+        <strong>⚖️ Aviso jurídico:</strong> Para imóveis acima de 30 salários mínimos, a transferência definitiva exige escritura pública registrada (art. 108 CC). Recomendamos fortemente a revisão deste contrato por advogado especializado em direito imobiliário, especialmente em transações de alto valor.
+      </div>
+
+      <div class="preview-contrato" id="previewContratoCV"></div>
+      <div class="hash-assinatura" id="hashAssinaturaCV"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© <span id="ano"></span> Contratos Fácil — Modelos jurídicos automatizados</p>
+    <p class="small">
+      ⚖️ Este site oferece modelos automatizados para preenchimento. Não constitui consultoria jurídica.
+      Para casos específicos, consulte um advogado.
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/geradores.js"></script>
+<script src="js/compra-venda.js"></script>
+<script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
+
+</body>
+</html>

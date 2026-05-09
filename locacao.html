@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contrato de Locação — Contratos Fácil</title>
+  <meta name="description" content="Gere um contrato de locação residencial ou comercial gratuito em 5 minutos.">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">📄</span>
+      <div>
+        <h1>Contratos Fácil</h1>
+        <p class="subtitle">Modelos jurídicos automatizados</p>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="locacao.html" class="ativo">Locação</a>
+      <a href="compra-venda.html">Compra e Venda</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="doacao.html">Doação</a>
+    </nav>
+  </div>
+</header>
+
+<!-- GERADOR -->
+<section id="gerador" class="section">
+  <div class="container">
+    <h2 class="section-title">🏠 Contrato de Locação</h2>
+    <p class="section-sub">Preencha os dados abaixo. Tudo é processado no seu navegador — nada é enviado para servidores.</p>
+
+    <!-- BARRA DE PROGRESSO -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 16.66%"></div>
+    </div>
+    <p class="progress-text">Passo <span id="passoAtual">1</span> de 6</p>
+
+    <!-- BOTÃO LIMPAR DADOS SALVOS -->
+    <div style="text-align: center; margin-bottom: 16px;">
+      <button type="button" class="btn-ghost" onclick="limparTudoLocacao()">🗑️ Limpar dados salvos</button>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <form id="contratoForm" class="form-card">
+
+      <!-- PASSO 1: LOCADORES -->
+      <div class="passo passo-ativo" data-passo="1">
+        <h3>👤 Dados do(s) Locador(es)</h3>
+        <p class="small">Pessoa(s) que está alugando o imóvel. Você pode adicionar mais de um (ex: imóvel em copropriedade).</p>
+
+        <div id="locadoresContainer">
+          <!-- Primeiro locador (sempre presente) -->
+          <div class="pessoa-bloco" data-pessoa="locador-1">
+            <h4>Locador 1</h4>
+
+            <div class="campo">
+              <label>Nome completo *</label>
+              <input type="text" id="locador_1_nome" placeholder="Ex: João da Silva" required>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>CPF *</label>
+                <input type="text" id="locador_1_cpf" placeholder="000.000.000-00" required data-validar="cpf">
+              </div>
+              <div class="campo">
+                <label>RG</label>
+                <input type="text" id="locador_1_rg" placeholder="00.000.000-0">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>Estado civil</label>
+                <select id="locador_1_estado_civil">
+                  <option value="solteiro(a)">Solteiro(a)</option>
+                  <option value="casado(a)">Casado(a)</option>
+                  <option value="divorciado(a)">Divorciado(a)</option>
+                  <option value="viúvo(a)">Viúvo(a)</option>
+                  <option value="união estável">União estável</option>
+                </select>
+              </div>
+              <div class="campo">
+                <label>Profissão</label>
+                <input type="text" id="locador_1_profissao" placeholder="Ex: empresário">
+              </div>
+            </div>
+
+            <div class="campo">
+              <label>Endereço completo *</label>
+              <input type="text" id="locador_1_endereco" placeholder="Rua, número, bairro, cidade - UF" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-adicionar-pessoa" onclick="adicionarPessoa('locador')">
+          ➕ Adicionar outro locador
+        </button>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoLocacao(1)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 2: LOCATÁRIOS -->
+      <div class="passo" data-passo="2">
+        <h3>👤 Dados do(s) Locatário(s)</h3>
+        <p class="small">Pessoa(s) que vai morar/usar o imóvel. Comum ter mais de um em casais ou sociedades.</p>
+
+        <div id="locatariosContainer">
+          <div class="pessoa-bloco" data-pessoa="locatario-1">
+            <h4>Locatário 1</h4>
+
+            <div class="campo">
+              <label>Nome completo *</label>
+              <input type="text" id="locatario_1_nome" placeholder="Ex: Maria Souza" required>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>CPF *</label>
+                <input type="text" id="locatario_1_cpf" placeholder="000.000.000-00" required data-validar="cpf">
+              </div>
+              <div class="campo">
+                <label>RG</label>
+                <input type="text" id="locatario_1_rg" placeholder="00.000.000-0">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>Estado civil</label>
+                <select id="locatario_1_estado_civil">
+                  <option value="solteiro(a)">Solteiro(a)</option>
+                  <option value="casado(a)">Casado(a)</option>
+                  <option value="divorciado(a)">Divorciado(a)</option>
+                  <option value="viúvo(a)">Viúvo(a)</option>
+                  <option value="união estável">União estável</option>
+                </select>
+              </div>
+              <div class="campo">
+                <label>Profissão</label>
+                <input type="text" id="locatario_1_profissao" placeholder="Ex: professora">
+              </div>
+            </div>
+
+            <div class="campo">
+              <label>Endereço atual *</label>
+              <input type="text" id="locatario_1_endereco" placeholder="Rua, número, bairro, cidade - UF" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-adicionar-pessoa" onclick="adicionarPessoa('locatario')">
+          ➕ Adicionar outro locatário
+        </button>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorLocacao(2)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoLocacao(2)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 3: IMÓVEL -->
+      <div class="passo" data-passo="3">
+        <h3>🏠 Dados do Imóvel</h3>
+
+        <div class="campo">
+          <label>Endereço completo do imóvel *</label>
+          <input type="text" id="imovel_endereco" placeholder="Rua, número, complemento, bairro, cidade - UF" required>
+        </div>
+
+        <div class="grid-2">
+          <div class="campo">
+            <label>Tipo do imóvel</label>
+            <select id="imovel_tipo">
+              <option value="apartamento">Apartamento</option>
+              <option value="casa">Casa</option>
+              <option value="quarto">Quarto</option>
+              <option value="kitnet">Kitnet</option>
+              <option value="sala comercial">Sala comercial</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label>Finalidade</label>
+            <select id="imovel_finalidade">
+              <option value="residencial">Residencial</option>
+              <option value="comercial">Comercial</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label>Matrícula do imóvel (opcional)</label>
+          <input type="text" id="imovel_matricula" placeholder="Ex: matrícula nº 12345 do CRI da Comarca de...">
+          <p class="small">Se houver, melhora a identificação jurídica.</p>
+        </div>
+
+        <div class="campo">
+          <label>Descrição do imóvel</label>
+          <textarea id="imovel_descricao" rows="3" placeholder="Ex: Apartamento de 2 quartos, sala, cozinha, banheiro, com 1 vaga de garagem..."></textarea>
+          <p class="small">Detalhe quantos cômodos, vagas, mobília, etc.</p>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorLocacao(3)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoLocacao(3)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 4: VALORES E PRAZO -->
+      <div class="passo" data-passo="4">
+        <h3>💰 Valores e Prazo</h3>
+
+        <div class="grid-2">
+          <div class="campo">
+            <label>Valor do aluguel mensal (R$) *</label>
+            <input type="number" id="valor_aluguel" placeholder="1500" min="0" step="0.01" required>
+          </div>
+          <div class="campo">
+            <label>Dia do vencimento</label>
+            <select id="dia_vencimento">
+              <option value="5">Dia 5</option>
+              <option value="10" selected>Dia 10</option>
+              <option value="15">Dia 15</option>
+              <option value="20">Dia 20</option>
+              <option value="25">Dia 25</option>
+              <option value="30">Dia 30</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="campo">
+            <label>Prazo do contrato</label>
+            <select id="prazo_meses">
+              <option value="6">6 meses</option>
+              <option value="12">12 meses</option>
+              <option value="24">24 meses</option>
+              <option value="30" selected>30 meses</option>
+              <option value="36">36 meses</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label>Data de início *</label>
+            <input type="date" id="data_inicio" required>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="campo">
+            <label>Forma de pagamento</label>
+            <select id="forma_pagamento">
+              <option value="PIX">PIX</option>
+              <option value="transferência bancária">Transferência bancária</option>
+              <option value="dinheiro">Dinheiro</option>
+              <option value="boleto">Boleto</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label>Índice de reajuste anual</label>
+            <select id="indice_reajuste">
+              <option value="IGP-M">IGP-M</option>
+              <option value="IPCA">IPCA</option>
+              <option value="INPC">INPC</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label>Cidade do contrato (foro) *</label>
+          <input type="text" id="cidade_foro" placeholder="Ex: São Paulo" required>
+          <p class="small">Cidade onde o contrato será assinado e foro de eleição.</p>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorLocacao(4)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoLocacao(4)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 5: GARANTIA LOCATÍCIA -->
+      <div class="passo" data-passo="5">
+        <h3>🛡️ Garantia Locatícia</h3>
+        <p class="small">A Lei do Inquilinato (art. 37) admite quatro modalidades de garantia. Escolha uma:</p>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_garantia" value="sem_garantia" checked>
+          <span>Sem garantia</span>
+          <span class="desc">O contrato segue sem garantia adicional. Mais simples, mas oferece menos proteção ao locador.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_garantia" value="caucao">
+          <span>Caução em dinheiro</span>
+          <span class="desc">Depósito de até 3 aluguéis (art. 38, §2º). Devolvido ao final do contrato com correção.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_garantia" value="fiador">
+          <span>Fiança (com fiador)</span>
+          <span class="desc">Pessoa que se compromete a pagar caso o locatário não pague.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_garantia" value="seguro_fianca">
+          <span>Seguro-fiança</span>
+          <span class="desc">Apólice de seguradora. O locatário paga prêmio mensal à seguradora.</span>
+        </label>
+
+        <!-- Campos da CAUÇÃO -->
+        <div id="campos_caucao" style="display: none; margin-top: 20px;">
+          <div class="dica"><strong>Caução:</strong> O valor não pode ultrapassar 3 meses de aluguel (art. 38, §2º).</div>
+          <div class="campo">
+            <label>Valor da caução (R$)</label>
+            <input type="number" id="caucao_valor" placeholder="Ex: 4500" min="0" step="0.01">
+            <p class="small" id="caucao_dica"></p>
+          </div>
+          <div class="campo">
+            <label>Forma de depósito</label>
+            <select id="caucao_forma">
+              <option value="conta poupança conjunta">Conta poupança conjunta</option>
+              <option value="depósito em conta do locador">Depósito em conta do locador</option>
+              <option value="caução em dinheiro">Caução em dinheiro entregue ao locador</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Campos do FIADOR -->
+        <div id="campos_fiador" style="display: none; margin-top: 20px;">
+          <div class="dica"><strong>Fiador:</strong> Idealmente proprietário de imóvel na mesma cidade ou região.</div>
+
+          <div class="campo">
+            <label>Nome completo do fiador *</label>
+            <input type="text" id="fiador_nome" placeholder="Ex: Carlos Pereira">
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>CPF *</label>
+              <input type="text" id="fiador_cpf" placeholder="000.000.000-00" data-validar="cpf">
+            </div>
+            <div class="campo">
+              <label>RG</label>
+              <input type="text" id="fiador_rg" placeholder="00.000.000-0">
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>Estado civil</label>
+              <select id="fiador_estado_civil">
+                <option value="solteiro(a)">Solteiro(a)</option>
+                <option value="casado(a)">Casado(a)</option>
+                <option value="divorciado(a)">Divorciado(a)</option>
+                <option value="viúvo(a)">Viúvo(a)</option>
+                <option value="união estável">União estável</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label>Profissão</label>
+              <input type="text" id="fiador_profissao">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Endereço completo</label>
+            <input type="text" id="fiador_endereco" placeholder="Rua, número, bairro, cidade - UF">
+          </div>
+
+          <div class="campo">
+            <label>Imóvel oferecido em garantia (opcional)</label>
+            <input type="text" id="fiador_imovel" placeholder="Ex: imóvel matriculado sob nº 56789, no CRI da Comarca de...">
+            <p class="small">Se o fiador oferece um imóvel específico como garantia adicional.</p>
+          </div>
+        </div>
+
+        <!-- Campos do SEGURO-FIANÇA -->
+        <div id="campos_seguro" style="display: none; margin-top: 20px;">
+          <div class="campo">
+            <label>Nome da seguradora</label>
+            <input type="text" id="seguro_seguradora" placeholder="Ex: Porto Seguro">
+          </div>
+          <div class="campo">
+            <label>Número da apólice (opcional)</label>
+            <input type="text" id="seguro_apolice" placeholder="Ex: 123456789">
+          </div>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorLocacao(5)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoLocacao(5)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 6: CLÁUSULAS OPCIONAIS -->
+      <div class="passo" data-passo="6">
+        <h3>📋 Cláusulas opcionais</h3>
+        <p class="small">Marque as cláusulas que se aplicam ao seu caso.</p>
+
+        <!-- Animais -->
+        <label class="opcao-bloco">
+          <input type="checkbox" id="clausula_animais">
+          <span>Imóvel permite animais</span>
+          <span class="desc">Inclui cláusula autorizando a permanência de animais domésticos.</span>
+        </label>
+
+        <!-- Mobília -->
+        <label class="opcao-bloco">
+          <input type="checkbox" id="clausula_mobiliado">
+          <span>Imóvel mobiliado</span>
+          <span class="desc">Inclui cláusula sobre os móveis e equipamentos fornecidos.</span>
+        </label>
+
+        <div id="campos_mobiliado" style="display: none;">
+          <div class="campo">
+            <label>Lista de móveis e equipamentos</label>
+            <textarea id="lista_mobilia" rows="4" placeholder="Ex: 1 sofá de 3 lugares, 1 mesa de jantar com 4 cadeiras, 1 geladeira marca Brastemp, 1 fogão 4 bocas..."></textarea>
+            <p class="small">Liste todos os itens, quando possível com marca e modelo.</p>
+          </div>
+        </div>
+
+        <!-- Vistoria -->
+        <label class="opcao-bloco">
+          <input type="checkbox" id="clausula_vistoria">
+          <span>Vistoria detalhada com termo anexo</span>
+          <span class="desc">Cláusula reforçando que termo de vistoria é parte integrante do contrato.</span>
+        </label>
+
+        <!-- Multa rescisória personalizada -->
+        <label class="opcao-bloco">
+          <input type="checkbox" id="clausula_multa_personalizada">
+          <span>Multa rescisória personalizada</span>
+          <span class="desc">Define um valor fixo de multa (padrão: 3 aluguéis, proporcional pela Lei 8.245/91).</span>
+        </label>
+
+        <div id="campos_multa" style="display: none;">
+          <div class="campo">
+            <label>Multa em quantidade de aluguéis</label>
+            <select id="multa_alugueis">
+              <option value="1">1 aluguel</option>
+              <option value="2">2 aluguéis</option>
+              <option value="3" selected>3 aluguéis</option>
+            </select>
+            <p class="small">A multa é reduzida proporcionalmente ao tempo cumprido (art. 4º da Lei do Inquilinato).</p>
+          </div>
+        </div>
+
+        <!-- Sublocação -->
+        <label class="opcao-bloco">
+          <input type="checkbox" id="clausula_sublocacao">
+          <span>Proibir sublocação</span>
+          <span class="desc">Veda expressamente que o locatário sublocate ou empreste o imóvel a terceiros.</span>
+        </label>
+
+        <!-- IPTU -->
+        <label class="opcao-bloco">
+          <input type="checkbox" id="clausula_iptu_locador">
+          <span>IPTU pago pelo locador</span>
+          <span class="desc">Por padrão, o locatário paga o IPTU. Marque se for o locador quem assumir.</span>
+        </label>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorLocacao(6)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="gerarContratoLocacao()">📄 Gerar Contrato</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- RESULTADO -->
+    <div id="resultado" class="resultado" style="display:none;">
+      <div class="resultado-header">
+        <h3>✅ Contrato gerado com sucesso!</h3>
+        <p>Confira a prévia abaixo. Você pode baixar em PDF ou Word.</p>
+      </div>
+
+      <div class="acoes-resultado">
+        <button class="btn btn-primary btn-lg" onclick="baixarPDFLocacao()">📄 Baixar PDF</button>
+        <button class="btn btn-outline btn-lg" onclick="baixarWordLocacao()">📝 Baixar Word (editável)</button>
+        <button class="btn btn-outline" onclick="imprimirLocacao()">🖨️ Imprimir</button>
+        <button class="btn btn-outline" onclick="novoContratoLocacao()">🔄 Gerar novo</button>
+      </div>
+
+      <div class="aviso-juridico">
+        <strong>⚖️ Aviso jurídico:</strong> Este é um modelo automatizado para uso pessoal.
+        Não substitui a orientação de um advogado. Recomendamos revisão por profissional habilitado
+        antes da assinatura, especialmente em casos complexos.
+      </div>
+
+      <div class="preview-contrato" id="previewContrato"></div>
+
+      <div class="hash-assinatura" id="hashAssinatura"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© <span id="ano"></span> Contratos Fácil — Modelos jurídicos automatizados</p>
+    <p class="small">
+      ⚖️ Este site oferece modelos automatizados para preenchimento. Não constitui consultoria jurídica.
+      Para casos específicos, consulte um advogado.
+    </p>
+  </div>
+</footer>
+
+<!-- BIBLIOTECAS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/geradores.js"></script>
+<script src="js/locacao.js"></script>
+<script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
+
+</body>
+</html>

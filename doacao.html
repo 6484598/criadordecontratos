@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doação — Contratos Fácil</title>
+  <meta name="description" content="Gere um contrato de doação gratuito. Pura, com encargo, em adiantamento de legítima ou com reserva de usufruto.">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">📄</span>
+      <div>
+        <h1>Contratos Fácil</h1>
+        <p class="subtitle">Modelos jurídicos automatizados</p>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="locacao.html">Locação</a>
+      <a href="compra-venda.html">Compra e Venda</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="doacao.html" class="ativo">Doação</a>
+    </nav>
+  </div>
+</header>
+
+<!-- GERADOR -->
+<section id="gerador" class="section">
+  <div class="container">
+    <h2 class="section-title">📦 Contrato de Doação</h2>
+    <p class="section-sub">Doação de bens móveis, imóveis ou valores. Conforme arts. 538 a 564 do Código Civil.</p>
+
+    <div class="dica" style="max-width: 800px; margin: 0 auto 24px;">
+      <strong>⚖️ Importante:</strong> Para doações de imóveis ou valores acima de 30 salários mínimos, é necessária <b>escritura pública</b> registrada em cartório (art. 108 CC). Este modelo serve como base para a escritura ou para doações de bens móveis e valores menores. Em doação para herdeiros, atenção à legítima (50% do patrimônio é reservado por lei).
+    </div>
+
+    <!-- BARRA DE PROGRESSO -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+    </div>
+    <p class="progress-text">Passo <span id="passoAtual">1</span> de 5</p>
+
+    <div style="text-align: center; margin-bottom: 16px;">
+      <button type="button" class="btn-ghost" onclick="limparTudoDoacao()">🗑️ Limpar dados salvos</button>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <form id="contratoFormDC" class="form-card">
+
+      <!-- PASSO 1: TIPO DE DOAÇÃO -->
+      <div class="passo passo-ativo" data-passo="1">
+        <h3>📋 Modalidade da Doação</h3>
+        <p class="small">Escolha o tipo de doação. Cada modalidade tem efeitos jurídicos próprios.</p>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_doacao" value="pura" checked>
+          <span>Doação Pura e Simples</span>
+          <span class="desc">Sem condições nem encargos. Liberalidade total do doador.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_doacao" value="encargo">
+          <span>Doação com Encargo (modal)</span>
+          <span class="desc">Donatário assume obrigação específica (ex: cuidar do doador, manter um patrimônio, etc.). Art. 553 CC.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_doacao" value="adiantamento">
+          <span>Adiantamento de Legítima</span>
+          <span class="desc">Pais para filhos. Será trazida à colação no inventário (art. 544 CC). Pode ser dispensada a colação por cláusula expressa.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="tipo_doacao" value="usufruto">
+          <span>Doação com Reserva de Usufruto</span>
+          <span class="desc">Doador mantém o uso e os frutos do bem em vida. Donatário recebe a nua-propriedade.</span>
+        </label>
+
+        <!-- Campo do encargo -->
+        <div id="campos_encargo" style="display:none; margin-top: 16px;">
+          <div class="campo">
+            <label>Descreva o encargo / obrigação do donatário *</label>
+            <textarea id="dc_encargo_descricao" rows="3" placeholder="Ex: O DONATÁRIO obriga-se a prestar assistência médica e cuidados pessoais ao DOADOR durante toda a vida deste."></textarea>
+          </div>
+        </div>
+
+        <!-- Campo do adiantamento -->
+        <div id="campos_adiantamento" style="display:none; margin-top: 16px;">
+          <label class="opcao-bloco">
+            <input type="checkbox" id="dc_dispensa_colacao">
+            <span>Dispensar a colação</span>
+            <span class="desc">A doação sai da parte disponível do doador (50%) e não será trazida ao inventário. Art. 2.005 CC.</span>
+          </label>
+        </div>
+
+        <!-- Campo do usufruto -->
+        <div id="campos_usufruto" style="display:none; margin-top: 16px;">
+          <div class="campo">
+            <label>Beneficiário do usufruto</label>
+            <select id="dc_usufruto_beneficiario">
+              <option value="doador">Apenas o doador (vitalício)</option>
+              <option value="doador_conjuge">Doador e cônjuge (vitalício para ambos)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoDC(1)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 2: DOADOR -->
+      <div class="passo" data-passo="2">
+        <h3>👤 Dados do(s) Doador(es)</h3>
+        <p class="small">Quem está doando o bem. Em caso de bem comum do casal, ambos devem doar.</p>
+
+        <div id="doadoresContainer">
+          <div class="pessoa-bloco" data-pessoa="doador-1">
+            <h4>Doador 1</h4>
+
+            <div class="campo">
+              <label>Nome completo *</label>
+              <input type="text" id="doador_1_nome" required>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>CPF *</label>
+                <input type="text" id="doador_1_cpf" placeholder="000.000.000-00" required data-validar="cpf">
+              </div>
+              <div class="campo">
+                <label>RG</label>
+                <input type="text" id="doador_1_rg">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>Estado civil</label>
+                <select id="doador_1_estado_civil">
+                  <option value="solteiro(a)">Solteiro(a)</option>
+                  <option value="casado(a)">Casado(a)</option>
+                  <option value="divorciado(a)">Divorciado(a)</option>
+                  <option value="viúvo(a)">Viúvo(a)</option>
+                  <option value="união estável">União estável</option>
+                </select>
+              </div>
+              <div class="campo">
+                <label>Profissão</label>
+                <input type="text" id="doador_1_profissao">
+              </div>
+            </div>
+
+            <div class="campo">
+              <label>Endereço completo *</label>
+              <input type="text" id="doador_1_endereco" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-adicionar-pessoa" onclick="adicionarPessoaDC('doador')">
+          ➕ Adicionar outro doador (cônjuge / coproprietário)
+        </button>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorDC(2)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoDC(2)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 3: DONATÁRIO -->
+      <div class="passo" data-passo="3">
+        <h3>👤 Dados do(s) Donatário(s)</h3>
+        <p class="small">Quem está recebendo a doação. Pode ser mais de um (ex: dois filhos recebendo igualmente).</p>
+
+        <div id="donatariosContainer">
+          <div class="pessoa-bloco" data-pessoa="donatario-1">
+            <h4>Donatário 1</h4>
+
+            <div class="campo">
+              <label>Nome completo *</label>
+              <input type="text" id="donatario_1_nome" required>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>CPF *</label>
+                <input type="text" id="donatario_1_cpf" placeholder="000.000.000-00" required data-validar="cpf">
+              </div>
+              <div class="campo">
+                <label>RG</label>
+                <input type="text" id="donatario_1_rg">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>Estado civil</label>
+                <select id="donatario_1_estado_civil">
+                  <option value="solteiro(a)">Solteiro(a)</option>
+                  <option value="casado(a)">Casado(a)</option>
+                  <option value="divorciado(a)">Divorciado(a)</option>
+                  <option value="viúvo(a)">Viúvo(a)</option>
+                  <option value="união estável">União estável</option>
+                </select>
+              </div>
+              <div class="campo">
+                <label>Profissão</label>
+                <input type="text" id="donatario_1_profissao">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="campo">
+                <label>Relação com o doador (opcional)</label>
+                <select id="donatario_1_relacao">
+                  <option value="">Não especificar</option>
+                  <option value="filho(a)">Filho(a)</option>
+                  <option value="cônjuge">Cônjuge</option>
+                  <option value="neto(a)">Neto(a)</option>
+                  <option value="irmão(ã)">Irmão(ã)</option>
+                  <option value="sobrinho(a)">Sobrinho(a)</option>
+                  <option value="amigo(a)">Amigo(a)</option>
+                  <option value="outro">Outro</option>
+                </select>
+              </div>
+              <div class="campo">
+                <label>Quinhão (% do bem)</label>
+                <input type="number" id="donatario_1_quinhao" placeholder="100" min="0" max="100" step="0.01" value="100">
+                <p class="small">Se houver mais de um, ajuste para somar 100%.</p>
+              </div>
+            </div>
+
+            <div class="campo">
+              <label>Endereço completo *</label>
+              <input type="text" id="donatario_1_endereco" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-adicionar-pessoa" onclick="adicionarPessoaDC('donatario')">
+          ➕ Adicionar outro donatário
+        </button>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorDC(3)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoDC(3)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 4: BEM DOADO -->
+      <div class="passo" data-passo="4">
+        <h3>🎁 Bem Doado</h3>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="dc_tipo_bem" value="imovel" checked>
+          <span>Bem Imóvel</span>
+          <span class="desc">Casa, apartamento, terreno, sala comercial.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="dc_tipo_bem" value="movel">
+          <span>Bem Móvel</span>
+          <span class="desc">Veículo, joia, obra de arte, equipamentos, etc.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="radio" name="dc_tipo_bem" value="dinheiro">
+          <span>Valor em Dinheiro</span>
+          <span class="desc">Quantia em moeda corrente.</span>
+        </label>
+
+        <!-- Bem IMÓVEL -->
+        <div id="campos_imovel" class="bloco-bem">
+          <div class="campo" style="margin-top: 16px;">
+            <label>Endereço do imóvel *</label>
+            <input type="text" id="dc_imovel_endereco" placeholder="Rua, número, complemento, bairro, cidade - UF">
+          </div>
+
+          <div class="grid-2">
+            <div class="campo">
+              <label>Tipo</label>
+              <select id="dc_imovel_tipo">
+                <option value="apartamento">Apartamento</option>
+                <option value="casa">Casa</option>
+                <option value="terreno">Terreno</option>
+                <option value="sala comercial">Sala comercial</option>
+                <option value="área rural">Área rural</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label>Área total (m²)</label>
+              <input type="number" id="dc_imovel_area" placeholder="75" min="0" step="0.01">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Matrícula *</label>
+            <input type="text" id="dc_imovel_matricula" placeholder="Matrícula nº 12345 do CRI da Comarca de...">
+          </div>
+
+          <div class="campo">
+            <label>Descrição detalhada</label>
+            <textarea id="dc_imovel_descricao" rows="3" placeholder="Ex: Apartamento de 2 quartos, 1 banheiro, sala, cozinha, área de serviço..."></textarea>
+          </div>
+        </div>
+
+        <!-- Bem MÓVEL -->
+        <div id="campos_movel" class="bloco-bem" style="display:none;">
+          <div class="campo" style="margin-top: 16px;">
+            <label>Descrição do bem *</label>
+            <input type="text" id="dc_movel_titulo" placeholder="Ex: Veículo Honda Civic 2022">
+          </div>
+
+          <div class="campo">
+            <label>Identificação detalhada *</label>
+            <textarea id="dc_movel_descricao" rows="4" placeholder="Para veículos: marca, modelo, ano, placa, chassi, RENAVAM. Para joias/obras: características, peso, autoria, número de série..."></textarea>
+          </div>
+        </div>
+
+        <!-- VALOR EM DINHEIRO -->
+        <div id="campos_dinheiro" class="bloco-bem" style="display:none;">
+          <div class="campo" style="margin-top: 16px;">
+            <label>Forma de entrega</label>
+            <select id="dc_dinheiro_forma">
+              <option value="PIX">PIX</option>
+              <option value="transferência bancária">Transferência bancária</option>
+              <option value="cheque administrativo">Cheque administrativo</option>
+              <option value="dinheiro">Em espécie</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Valor (comum a todos) -->
+        <div class="campo" style="margin-top: 16px;">
+          <label>Valor estimado do bem doado (R$) *</label>
+          <input type="number" id="dc_valor" placeholder="100000" min="0" step="0.01" required>
+          <p class="small">Para fins de cálculo do ITCMD (imposto de doação) e da legítima.</p>
+        </div>
+
+        <div class="dica">
+          <strong>📌 ITCMD:</strong> A doação está sujeita ao Imposto sobre Transmissão Causa Mortis e Doação, recolhido pelo donatário (em geral). Em SP, a alíquota é de 4%.
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorDC(4)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="proximoPassoDC(4)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 5: CLÁUSULAS RESTRITIVAS E FINALIZAÇÃO -->
+      <div class="passo" data-passo="5">
+        <h3>🔒 Cláusulas restritivas e finalização</h3>
+        <p class="small">Cláusulas opcionais que protegem o bem doado e as condições do contrato.</p>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="dc_inalienabilidade">
+          <span>Cláusula de Inalienabilidade</span>
+          <span class="desc">Donatário não pode vender o bem. Pode ser vitalícia ou por prazo definido. Art. 1.911 CC.</span>
+        </label>
+
+        <div id="campos_inalienabilidade" style="display:none;">
+          <div class="campo">
+            <label>Duração</label>
+            <select id="dc_inalienabilidade_prazo">
+              <option value="vitalicia">Vitalícia (toda vida do donatário)</option>
+              <option value="10">Por 10 anos</option>
+              <option value="15">Por 15 anos</option>
+              <option value="20">Por 20 anos</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="dc_impenhorabilidade">
+          <span>Cláusula de Impenhorabilidade</span>
+          <span class="desc">O bem não pode ser penhorado por dívidas do donatário.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="dc_incomunicabilidade">
+          <span>Cláusula de Incomunicabilidade</span>
+          <span class="desc">O bem não se comunica com o cônjuge do donatário (não entra em comunhão de bens). Importante em casamento em comunhão universal.</span>
+        </label>
+
+        <label class="opcao-bloco">
+          <input type="checkbox" id="dc_reversao">
+          <span>Cláusula de Reversão</span>
+          <span class="desc">Se o donatário falecer antes do doador, o bem volta para o doador. Art. 547 CC.</span>
+        </label>
+
+        <h4 style="margin-top: 32px;">Finalização</h4>
+
+        <div class="campo">
+          <label>Local da assinatura *</label>
+          <input type="text" id="dc_cidade_foro" placeholder="Ex: São Paulo" required>
+        </div>
+
+        <div class="campo">
+          <label>Data da doação *</label>
+          <input type="date" id="dc_data" required>
+        </div>
+
+        <div class="dica">
+          <strong>📌 Aceitação:</strong> A doação só se completa com a aceitação do donatário (art. 539 CC). Em doação para incapaz, vale a regra do art. 543 CC. Este modelo já inclui a aceitação expressa.
+        </div>
+
+        <div class="navegacao">
+          <button type="button" class="btn btn-outline" onclick="passoAnteriorDC(5)">← Anterior</button>
+          <button type="button" class="btn btn-primary btn-lg" onclick="gerarContratoDC()">📄 Gerar Contrato</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- RESULTADO -->
+    <div id="resultado" class="resultado" style="display:none;">
+      <div class="resultado-header">
+        <h3>✅ Contrato gerado com sucesso!</h3>
+        <p>Confira a prévia abaixo. Você pode baixar em PDF ou Word.</p>
+      </div>
+
+      <div class="acoes-resultado">
+        <button class="btn btn-primary btn-lg" onclick="baixarPDFDC()">📄 Baixar PDF</button>
+        <button class="btn btn-outline btn-lg" onclick="baixarWordDC()">📝 Baixar Word</button>
+        <button class="btn btn-outline" onclick="imprimirDC()">🖨️ Imprimir</button>
+        <button class="btn btn-outline" onclick="novoContratoDC()">🔄 Gerar novo</button>
+      </div>
+
+      <div class="aviso-juridico">
+        <strong>⚖️ Aviso jurídico:</strong> Para doação de imóveis, é obrigatória a escritura pública registrada em cartório (art. 108 CC). Este contrato particular pode servir como base para a escritura. Lembre-se de recolher o ITCMD junto à Secretaria da Fazenda do seu estado. Em casos envolvendo herdeiros, fiador ou patrimônio significativo, consulte um advogado.
+      </div>
+
+      <div class="preview-contrato" id="previewContratoDC"></div>
+      <div class="hash-assinatura" id="hashAssinaturaDC"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© <span id="ano"></span> Contratos Fácil — Modelos jurídicos automatizados</p>
+    <p class="small">
+      ⚖️ Este site oferece modelos automatizados para preenchimento. Não constitui consultoria jurídica.
+      Para casos específicos, consulte um advogado.
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/geradores.js"></script>
+<script src="js/doacao.js"></script>
+<script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
+
+</body>
+</html>
