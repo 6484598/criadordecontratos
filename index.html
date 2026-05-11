@@ -30,6 +30,7 @@
       <a href="compra-venda.html">Compra e Venda</a>
       <a href="servicos.html">Serviços</a>
       <a href="doacao.html">Doação</a>
+      <a href="editar.html">Editar</a>
       <a href="contato.html">Contato</a>
     </nav>
   </div>
@@ -86,6 +87,13 @@
         <h3>Doação</h3>
         <p>Contrato de doação de bens móveis ou imóveis, com ou sem encargo.</p>
         <span class="tag">Disponível</span>
+      </a>
+
+      <a href="editar.html" class="card-contrato" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-color: var(--success);">
+        <div class="icone">✏️</div>
+        <h3>Já tem um contrato?</h3>
+        <p>Faça upload do seu PDF ou Word e edite com nossa ajuda. Detecção automática de campos e sugestões de cláusulas.</p>
+        <span class="tag" style="background: var(--success); color:#fff;">Editar contrato</span>
       </a>
 
       <a href="contato.html" class="card-contrato" style="background: linear-gradient(135deg, var(--primary-soft) 0%, #fef3c7 100%); border-color: var(--primary);">
@@ -164,11 +172,18 @@
     <p>© <span id="ano"></span> Contratos Fácil — Modelos jurídicos automatizados</p>
     <p class="small">
       ⚖️ Este site oferece modelos automatizados para preenchimento. Não constitui consultoria jurídica.
-      Para casos específicos, consulte um advogado.
+      Para casos específicos, consulte um(a) advogado(a) habilitado(a).
+    </p>
+    <p class="small" style="margin-top:12px;">
+      <a href="privacidade.html" style="color:#fff; opacity:0.8;">Política de Privacidade</a> ·
+      <a href="termos.html" style="color:#fff; opacity:0.8;">Termos de Uso</a> ·
+      <a href="editar.html">Editar</a>
+      <a href="contato.html" style="color:#fff; opacity:0.8;">Contato</a>
     </p>
   </div>
 </footer>
 
+<script src="js/cookies.js"></script>
 <script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
 
 </body>
