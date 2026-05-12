@@ -1,40 +1,34 @@
 {
   "version": "1.0",
   "ultimaAtualizacao": "2026-05-12",
-
   "site": {
     "nome": "Contratos Fácil",
     "tagline": "Modelos jurídicos automatizados",
     "tituloHero": "Contratos prontos<br>em <span class=\"highlight\">minutos</span>",
     "subtituloHero": "Modelos juridicamente corretos, atualizados conforme a legislação brasileira. Baixe em PDF ou Word para imprimir e assinar."
   },
-
   "contato": {
     "whatsapp": "5511947755850",
     "email": "cultor.motovlog@gmail.com",
     "linkWhatsappTexto": "Olá! Tenho interesse nos contratos do Contratos Fácil."
   },
-
   "premium": {
     "ativo": true,
-    "preco": 19.90,
+    "preco": 19.9,
     "precoFormatado": "R$ 19,90",
     "linkHotmart": "https://pay.hotmart.com/SEU_PRODUTO_HOTMART",
     "tituloCard": "Já tem um contrato?",
     "descricaoCard": "Tenha o modelo Premium com cláusula de fiança, termo de vistoria detalhado e cláusulas avançadas de proteção.",
     "textoCTA": "Comprar agora com segurança"
   },
-
   "adsense": {
     "ativo": true,
     "publisherId": "ca-pub-6511130884911412"
   },
-
   "analytics": {
-    "ativo": false,
-    "measurementId": ""
+    "ativo": true,
+    "measurementId": "G-T5XP12P8TM"
   },
-
   "cards": {
     "mostrarPremium": true,
     "mostrarEditar": true,
