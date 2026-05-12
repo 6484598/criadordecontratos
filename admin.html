@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Painel Administrativo — Contratos Fácil</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ESTILOS ESPECÍFICOS DO DASHBOARD */
+    body {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      min-height: 100vh;
+    }
+
+    .login-box {
+      max-width: 420px;
+      margin: 80px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .login-box h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      color: #1e293b;
+      text-align: center;
+    }
+
+    .login-box p {
+      text-align: center;
+      color: #64748b;
+      margin: 0 0 24px;
+      font-size: 14px;
+    }
+
+    .dashboard {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .dashboard-header {
+      background: white;
+      padding: 24px 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .dashboard-header h1 {
+      margin: 0;
+      font-size: 22px;
+      color: #1e293b;
+    }
+
+    .dashboard-header .subtitle {
+      font-size: 13px;
+      color: #64748b;
+      margin: 4px 0 0;
+    }
+
+    .acoes-topo {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .secao-config {
+      background: white;
+      padding: 28px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .secao-config h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .secao-config .descricao {
+      font-size: 13px;
+      color: #64748b;
+      margin: 0 0 20px;
+    }
+
+    .campo-form {
+      margin-bottom: 16px;
+    }
+
+    .campo-form label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #334155;
+    }
+
+    .campo-form input,
+    .campo-form textarea,
+    .campo-form select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .campo-form input:focus,
+    .campo-form textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+
+    .campo-form .dica {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    /* Switch (liga/desliga) */
+    .switch-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f8fafc;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .switch-wrap:hover {
+      background: #f1f5f9;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #cbd5e1;
+      transition: 0.3s;
+      border-radius: 26px;
+    }
+
+    .slider::before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    input:checked + .slider {
+      background: #16a34a;
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(22px);
+    }
+
+    .switch-label {
+      flex: 1;
+    }
+
+    .switch-label .titulo {
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 14px;
+    }
+
+    .switch-label .sub {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    /* Botões */
+    .btn-salvar {
+      background: #16a34a;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-salvar:hover:not(:disabled) {
+      background: #15803d;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+    }
+
+    .btn-salvar:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-sair {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-link {
+      background: none;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-link:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #1e293b;
+      color: white;
+      padding: 14px 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      z-index: 9999;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.3s;
+      max-width: 320px;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    #toast.sucesso { background: #16a34a; }
+    #toast.erro { background: #ef4444; }
+    #toast.info { background: #2563eb; }
+
+    /* Aviso topo */
+    .aviso-config {
+      background: #fef3c7;
+      border: 1px solid #fbbf24;
+      color: #78350f;
+      padding: 14px 18px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .aviso-config strong { display: block; margin-bottom: 4px; }
+
+    /* Status do save */
+    .status-save {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #f0fdf4;
+      color: #166534;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .login-box { margin: 30px 16px; padding: 28px 20px; }
+      .dashboard { padding: 12px; }
+      .secao-config { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TELA DE LOGIN -->
+<div id="telaLogin" class="login-box">
+  <h1>🔒 Painel Administrativo</h1>
+  <p>Entre com sua senha + token do GitHub</p>
+
+  <div class="campo-form">
+    <label>Senha do painel</label>
+    <input type="password" id="senha" placeholder="Digite sua senha">
+  </div>
+
+  <div class="campo-form">
+    <label>Token do GitHub</label>
+    <input type="password" id="token" placeholder="ghp_xxxxxxxxxxxx">
+    <p class="dica">Cole o token que você gerou no GitHub. Ele fica salvo só no seu navegador.</p>
+  </div>
+
+  <button class="btn-salvar" style="width:100%; padding:14px;" onclick="entrar()">
+    Entrar →
+  </button>
+
+  <p class="dica" style="text-align:center; margin-top:16px;">
+    Esqueceu como gerar o token? <a href="#" onclick="mostrarAjudaToken(); return false;" style="color:#2563eb;">Ver instruções</a>
+  </p>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="dashboard" style="display:none;">
+
+  <div class="dashboard-header">
+    <div>
+      <h1>⚙️ Painel Administrativo</h1>
+      <p class="subtitle">Edite as configurações do seu site sem mexer no código</p>
+    </div>
+    <div class="acoes-topo">
+      <a href="index.html" target="_blank" class="btn-link">👁 Ver site</a>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </div>
+
+  <div class="aviso-config">
+    <strong>💡 Como funciona:</strong>
+    As mudanças que você fizer aqui são salvas no GitHub e o site atualiza sozinho em 1-2 minutos.
+    Edite com calma — sem pressa de salvar.
+  </div>
+
+  <!-- INFORMAÇÕES DO SITE -->
+  <div class="secao-config">
+    <h2>🏠 Informações do Site</h2>
+    <p class="descricao">Textos que aparecem no cabeçalho e na home.</p>
+
+    <div class="campo-form">
+      <label>Nome do site</label>
+      <input type="text" id="cfg_site_nome">
+    </div>
+
+    <div class="campo-form">
+      <label>Tagline (frase curta)</label>
+      <input type="text" id="cfg_site_tagline">
+      <p class="dica">Aparece embaixo do nome, no cabeçalho.</p>
+    </div>
+
+    <div class="campo-form">
+      <label>Título principal da home</label>
+      <textarea id="cfg_site_titulo_hero" rows="2"></textarea>
+      <p class="dica">Pode usar HTML simples. Ex: &lt;span class="highlight"&gt;palavra em destaque&lt;/span&gt;</p>
+    </div>
+
+    <div class="campo-form">
+      <label>Subtítulo da home</label>
+      <textarea id="cfg_site_subtitulo_hero" rows="3"></textarea>
+    </div>
+  </div>
+
+  <!-- CONTATO -->
+  <div class="secao-config">
+    <h2>📞 Contato</h2>
+    <p class="descricao">Como as pessoas vão te encontrar.</p>
+
+    <div class="grid-2">
+      <div class="campo-form">
+        <label>WhatsApp (só números, com DDI 55)</label>
+        <input type="text" id="cfg_whatsapp" placeholder="5511947755850">
+        <p class="dica">Formato: 55 + DDD + número, sem espaços</p>
+      </div>
+
+      <div class="campo-form">
+        <label>E-mail</label>
+        <input type="email" id="cfg_email">
+      </div>
+    </div>
+
+    <div class="campo-form">
+      <label>Mensagem padrão do WhatsApp</label>
+      <input type="text" id="cfg_whatsapp_texto">
+      <p class="dica">Texto que vai pré-preenchido quando alguém clicar no botão</p>
+    </div>
+  </div>
+
+  <!-- PREMIUM -->
+  <div class="secao-config">
+    <h2>⭐ Modelo Premium (Pago)</h2>
+    <p class="descricao">Configurações do contrato vendido via Hotmart.</p>
+
+    <label class="switch-wrap">
+      <span class="switch">
+        <input type="checkbox" id="cfg_premium_ativo">
+        <span class="slider"></span>
+      </span>
+      <span class="switch-label">
+        <span class="titulo">Modelo Premium ativo</span>
+        <span class="sub">Liga/desliga a venda do contrato premium no site</span>
+      </span>
+    </label>
+
+    <div class="grid-2" style="margin-top:16px;">
+      <div class="campo-form">
+        <label>Preço (em reais)</label>
+        <input type="number" id="cfg_premium_preco" step="0.01" min="0">
+        <p class="dica">Ex: 19.90</p>
+      </div>
+
+      <div class="campo-form">
+        <label>Preço formatado (texto)</label>
+        <input type="text" id="cfg_premium_preco_formatado">
+        <p class="dica">Ex: R$ 19,90</p>
+      </div>
+    </div>
+
+    <div class="campo-form">
+      <label>Link do Hotmart</label>
+      <input type="url" id="cfg_premium_hotmart" placeholder="https://pay.hotmart.com/...">
+      <p class="dica">Cole aqui o link de checkout que aparece no painel do Hotmart depois que cadastrar o produto.</p>
+    </div>
+
+    <div class="campo-form">
+      <label>Título do card na home</label>
+      <input type="text" id="cfg_premium_titulo">
+    </div>
+
+    <div class="campo-form">
+      <label>Descrição do card na home</label>
+      <textarea id="cfg_premium_descricao" rows="2"></textarea>
+    </div>
+
+    <div class="campo-form">
+      <label>Texto do botão de compra (CTA)</label>
+      <input type="text" id="cfg_premium_cta">
+    </div>
+  </div>
+
+  <!-- VISIBILIDADE -->
+  <div class="secao-config">
+    <h2>👁 O que mostrar na Home</h2>
+    <p class="descricao">Liga/desliga cards específicos.</p>
+
+    <label class="switch-wrap" style="margin-bottom:8px;">
+      <span class="switch">
+        <input type="checkbox" id="cfg_card_premium">
+        <span class="slider"></span>
+      </span>
+      <span class="switch-label">
+        <span class="titulo">Card de Premium na home</span>
+        <span class="sub">Mostra/esconde o card "Já tem um contrato?"</span>
+      </span>
+    </label>
+
+    <label class="switch-wrap" style="margin-bottom:8px;">
+      <span class="switch">
+        <input type="checkbox" id="cfg_card_editar">
+        <span class="slider"></span>
+      </span>
+      <span class="switch-label">
+        <span class="titulo">Card de Editar contrato</span>
+        <span class="sub">Mostra/esconde o card de upload/edição</span>
+      </span>
+    </label>
+
+    <label class="switch-wrap">
+      <span class="switch">
+        <input type="checkbox" id="cfg_card_contato">
+        <span class="slider"></span>
+      </span>
+      <span class="switch-label">
+        <span class="titulo">Card de Assessoria Jurídica</span>
+        <span class="sub">Mostra/esconde o card de atendimento personalizado</span>
+      </span>
+    </label>
+  </div>
+
+  <!-- ADSENSE E ANALYTICS -->
+  <div class="secao-config">
+    <h2>📊 Anúncios e Análise</h2>
+    <p class="descricao">Google AdSense (anúncios) e Google Analytics (estatísticas).</p>
+
+    <label class="switch-wrap" style="margin-bottom:12px;">
+      <span class="switch">
+        <input type="checkbox" id="cfg_adsense_ativo">
+        <span class="slider"></span>
+      </span>
+      <span class="switch-label">
+        <span class="titulo">Google AdSense ativo</span>
+        <span class="sub">Mostra anúncios do Google no site</span>
+      </span>
+    </label>
+
+    <div class="campo-form">
+      <label>Publisher ID do AdSense</label>
+      <input type="text" id="cfg_adsense_id" placeholder="ca-pub-XXXXXXXXXXXX">
+    </div>
+
+    <label class="switch-wrap" style="margin: 24px 0 12px;">
+      <span class="switch">
+        <input type="checkbox" id="cfg_analytics_ativo">
+        <span class="slider"></span>
+      </span>
+      <span class="switch-label">
+        <span class="titulo">Google Analytics ativo</span>
+        <span class="sub">Mede visitas no site</span>
+      </span>
+    </label>
+
+    <div class="campo-form">
+      <label>Measurement ID do Analytics</label>
+      <input type="text" id="cfg_analytics_id" placeholder="G-XXXXXXXXXX">
+      <p class="dica">Depois de criar conta no Google Analytics, cole o ID aqui.</p>
+    </div>
+  </div>
+
+  <!-- BOTÃO SALVAR FLUTUANTE -->
+  <div style="position:sticky; bottom: 20px; text-align:center; margin-top:32px;">
+    <button class="btn-salvar" id="btnSalvar" onclick="salvarTudo()" style="font-size:16px; padding:16px 40px; box-shadow: 0 8px 24px rgba(22,163,74,0.4);">
+      💾 Salvar Todas as Alterações
+    </button>
+    <p class="dica" style="margin-top:8px; color:white;">
+      Após salvar, aguarde 1-2 minutos para o site atualizar
+    </p>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script src="js/admin.js"></script>
+
+</body>
+</html>
