@@ -1,0 +1,13 @@
+{
+  "name": "criadordecontratos",
+  "version": "1.0.0",
+  "description": "Gerador de contratos jurídicos automatizados",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Static site - no build required'",
+    "dev": "echo 'Use a local server to preview'"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.3.1"
+  }
+}
