@@ -87,7 +87,12 @@ function atualizarProgressoLocacao() {
    2) ADICIONAR/REMOVER LOCADOR OU LOCATÁRIO
 ========================================================= */
 function adicionarPessoa(tipo) {
-  const container = document.getElementById(tipo + "sContainer");
+  // Mapeamento dos containers (plural em português é irregular: locador → locadores)
+  const idsContainer = {
+    locador: "locadoresContainer",
+    locatario: "locatariosContainer"
+  };
+  const container = document.getElementById(idsContainer[tipo]);
   const total = tipo === "locador" ? ++totalLocadores : ++totalLocatarios;
 
   const bloco = document.createElement("div");
