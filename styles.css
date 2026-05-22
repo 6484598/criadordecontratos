@@ -220,6 +220,13 @@ nav a.ativo {
   box-shadow: var(--shadow-lg);
 }
 
+.preference {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin: 0.5rem;
+}}
+
 .card-contrato .icone {
   font-size: 40px;
 }
