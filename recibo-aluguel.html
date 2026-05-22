@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta name="google-adsense-account" content="ca-pub-6511130884911412">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6511130884911412" crossorigin="anonymous"></script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recibo de Aluguel Grátis — Gerador Online | Contratos Fácil</title>
+  <meta name="description" content="Gere recibos de aluguel mensais grátis em PDF e Word. Pronto pra preencher, baixar e entregar. Conforme legislação brasileira.">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">📄</span>
+      <div>
+        <h1>Contratos Fácil</h1>
+        <p class="subtitle">Modelos jurídicos automatizados</p>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="locacao.html">Locação</a>
+      <a href="compra-venda.html">Compra e Venda</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="doacao.html">Doação</a>
+      <a href="editar.html">Editar</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="badge">📄 100% GRÁTIS</span>
+    <h2>Recibo de Aluguel<br><span class="highlight">em 1 minuto</span></h2>
+    <p class="hero-sub">
+      Gere recibos mensais de aluguel automaticamente.<br>
+      Pronto pra imprimir, assinar e entregar ao inquilino.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <form id="formRecibo" class="form-grid">
+
+      <!-- DADOS DO LOCADOR (Quem RECEBE) -->
+      <div class="card">
+        <h3>👤 Dados do LOCADOR (quem recebe o aluguel)</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome completo *</label>
+            <input type="text" id="locadorNome" required>
+          </div>
+          <div class="form-group">
+            <label>CPF *</label>
+            <input type="text" id="locadorCPF" maxlength="14" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Endereço completo (opcional)</label>
+          <input type="text" id="locadorEndereco">
+        </div>
+      </div>
+
+      <!-- DADOS DO LOCATÁRIO (Quem PAGA) -->
+      <div class="card">
+        <h3>🧑 Dados do LOCATÁRIO (quem paga o aluguel)</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome completo *</label>
+            <input type="text" id="locatarioNome" required>
+          </div>
+          <div class="form-group">
+            <label>CPF *</label>
+            <input type="text" id="locatarioCPF" maxlength="14" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- DADOS DO IMÓVEL -->
+      <div class="card">
+        <h3>🏠 Imóvel alugado</h3>
+        <div class="form-group">
+          <label>Endereço completo do imóvel *</label>
+          <input type="text" id="imovelEndereco" placeholder="Rua, número, complemento, bairro, cidade, estado, CEP" required>
+        </div>
+      </div>
+
+      <!-- DADOS DO PAGAMENTO -->
+      <div class="card">
+        <h3>💰 Dados do pagamento</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Valor pago (R$) *</label>
+            <input type="number" id="valorPago" step="0.01" min="0" required placeholder="1500.00">
+          </div>
+          <div class="form-group">
+            <label>Mês de referência *</label>
+            <select id="mesReferencia" required>
+              <option value="">Selecione...</option>
+              <option value="janeiro">Janeiro</option>
+              <option value="fevereiro">Fevereiro</option>
+              <option value="março">Março</option>
+              <option value="abril">Abril</option>
+              <option value="maio">Maio</option>
+              <option value="junho">Junho</option>
+              <option value="julho">Julho</option>
+              <option value="agosto">Agosto</option>
+              <option value="setembro">Setembro</option>
+              <option value="outubro">Outubro</option>
+              <option value="novembro">Novembro</option>
+              <option value="dezembro">Dezembro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Ano *</label>
+            <input type="number" id="anoReferencia" min="2024" max="2030" value="2026" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data do pagamento *</label>
+            <input type="date" id="dataPagamento" required>
+          </div>
+          <div class="form-group">
+            <label>Forma de pagamento *</label>
+            <select id="formaPagamento" required>
+              <option value="">Selecione...</option>
+              <option value="PIX">PIX</option>
+              <option value="transferência bancária">Transferência bancária</option>
+              <option value="depósito bancário">Depósito bancário</option>
+              <option value="dinheiro">Dinheiro</option>
+              <option value="cheque">Cheque</option>
+              <option value="boleto bancário">Boleto bancário</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXTRAS (opcional) -->
+      <div class="card">
+        <h3>➕ Valores adicionais (opcional)</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Condomínio (R$)</label>
+            <input type="number" id="valorCondominio" step="0.01" min="0" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label>IPTU (R$)</label>
+            <input type="number" id="valorIPTU" step="0.01" min="0" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label>Multa/juros por atraso (R$)</label>
+            <input type="number" id="valorMulta" step="0.01" min="0" placeholder="0.00">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Observações (opcional)</label>
+          <textarea id="observacoes" rows="2" placeholder="Ex: Referente ao 12º mês de contrato..."></textarea>
+        </div>
+      </div>
+
+      <!-- CIDADE -->
+      <div class="card">
+        <h3>📍 Local de emissão</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cidade/Estado *</label>
+            <input type="text" id="cidadeEmissao" placeholder="Ex: Arujá - SP" required>
+          </div>
+          <div class="form-group">
+            <label>Data de emissão *</label>
+            <input type="date" id="dataEmissao" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÕES -->
+      <div class="acoes-finais">
+        <button type="button" class="btn btn-primary btn-lg" onclick="gerarPDF()">📄 Baixar Recibo em PDF</button>
+        <button type="button" class="btn btn-outline btn-lg" onclick="gerarWord()">📝 Baixar Recibo em Word</button>
+      </div>
+
+      <div class="dica" style="background:#fef3c7; border:1px solid #fbbf24; padding:16px; border-radius:10px; margin-top:24px;">
+        <strong>💡 Dica:</strong> Gere 2 vias do recibo — uma fica com você (locador) e outra com o inquilino. Guarde por 5 anos no mínimo.
+      </div>
+
+      <!-- UPSELL pra PROCURAÇÃO -->
+      <div class="card" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #f59e0b; margin-top: 24px;">
+        <h3>📋 Precisa de PROCURAÇÃO pra administrar seu imóvel?</h3>
+        <p>Se você não mora no Brasil ou viaja muito, faça uma procuração pra alguém de confiança administrar o aluguel pra você. Modelo profissional por apenas <b>R$ 9,90</b>.</p>
+        <a href="premium-procuracao-imovel.html" class="btn btn-outline">Ver Modelo Premium →</a>
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Contratos Fácil — Modelos jurídicos automatizados</p>
+    <p class="small">
+      ⚖️ Este site oferece modelos automatizados para preenchimento. Não constitui consultoria jurídica.
+    </p>
+    <p class="small" style="margin-top:12px;">
+      <a href="privacidade.html" style="color:#fff; opacity:0.8;">Política de Privacidade</a> ·
+      <a href="termos.html" style="color:#fff; opacity:0.8;">Termos de Uso</a> ·
+      <a href="contato.html" style="color:#fff; opacity:0.8;">Contato</a>
+    </p>
+  </div>
+</footer>
+
+<!-- Bibliotecas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.min.js"></script>
+
+<script src="js/utils.js"></script>
+<script src="js/recibo-aluguel.js"></script>
+<script src="js/cookies.js"></script>
+
+</body>
+</html>
