@@ -225,7 +225,15 @@ nav a.ativo {
   justify-content: space-between;
   width: 60%;
   margin: 0.5rem;
-}}
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary-soft);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
 
 .card-contrato .icone {
   font-size: 40px;
