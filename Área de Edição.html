@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta name="google-adsense-account" content="ca-pub-6511130884911412">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6511130884911412" crossorigin="anonymous"></script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Editar Contrato — Contratos Fácil</title>
+  <meta name="description" content="Faça upload do seu contrato em PDF ou Word e edite com nossa ajuda. Detecção automática de campos, sugestões de cláusulas e download em PDF/Word.">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Estilos específicos da página de edição */
+    .upload-area {
+      background: var(--surface);
+      border: 3px dashed var(--border);
+      border-radius: 16px;
+      padding: 60px 30px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .upload-area:hover,
+    .upload-area.dragover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .upload-icone { font-size: 64px; margin-bottom: 16px; }
+    .upload-area h3 { margin: 0 0 8px; font-size: 22px; }
+    .upload-aviso {
+      margin-top: 24px;
+      padding: 14px 20px;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      color: #166534;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    .upload-loading { text-align: center; padding: 60px 20px; }
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .editor-toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      padding: 16px;
+      background: var(--surface);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .editor-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+    }
+    .editor-painel {
+      background: var(--surface);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      height: fit-content;
+      position: sticky;
+      top: 90px;
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+    }
+    .editor-painel h4 { margin: 0 0 4px; font-size: 16px; }
+    .editor-painel .small {
+      color: var(--text-light);
+      margin: 0 0 16px;
+      font-size: 13px;
+    }
+    .campos-detectados { display: flex; flex-direction: column; gap: 10px; }
+    .campo-detectado {
+      background: var(--bg);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 13px;
+    }
+    .campo-detectado:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .campo-detectado .label {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .campo-detectado .valor {
+      margin-top: 4px;
+      color: var(--text);
+      word-break: break-word;
+    }
+    .aviso-vazio {
+      color: var(--text-light);
+      font-style: italic;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+    .editor-texto-box {
+      background: var(--surface);
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    .editor-texto {
+      min-height: 500px;
+      max-height: 700px;
+      overflow-y: auto;
+      padding: 30px 40px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fefefe;
+      font-family: 'Times New Roman', serif;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #000;
+      outline: none;
+    }
+    .editor-texto:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+
+    /* Modal de sugestões */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-conteudo {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .modal-fechar {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text-light);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+    }
+    .sugestoes-lista { display: grid; gap: 12px; margin-top: 20px; }
+    .sugestao-card {
+      background: var(--bg);
+      padding: 16px 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .sugestao-card h5 { margin: 0 0 6px; font-size: 15px; }
+    .sugestao-card .small { color: var(--text-light); margin: 0 0 12px; font-size: 13px; }
+
+    @media (max-width: 900px) {
+      .editor-grid { grid-template-columns: 1fr; }
+      .editor-painel { position: static; max-height: 300px; }
+    }
+    @media (max-width: 600px) {
+      .editor-toolbar { flex-direction: column; }
+      .editor-toolbar .btn { width: 100%; }
+      .upload-area { padding: 40px 20px; }
+      .editor-texto { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon"><img src="fotos\logo.png" alt="Logo"></span>
+      <div>
+        <h1>Contratos Fácil</h1>
+        <p class="subtitle">Modelos jurídicos automatizados</p>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="locacao.html">Locação</a>
+      <a href="compra-venda.html">Compra e Venda</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="doacao.html">Doação</a>
+      <a href="Área de Edição.html" class="ativo">Área de Edição</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding: 60px 0;">
+  <div class="container">
+    <span class="badge">✏️ Edição assistida</span>
+    <h2>Já tem um contrato?<br><span class="highlight">Edite com nossa ajuda.</span></h2>
+    <p class="hero-sub">
+      Faça upload do seu contrato em PDF ou Word.<br>
+      Editor visual, detecção automática de campos e sugestões de cláusulas.
+    </p>
+  </div>
+</section>
+
+<!-- CONTEÚDO -->
+<section class="section">
+  <div class="container">
+
+    <!-- ÁREA DE UPLOAD -->
+    <div id="uploadArea" class="upload-area">
+      <div class="upload-icone">📤</div>
+      <h3>Arraste seu contrato aqui</h3>
+      <p>ou <button class="btn-link" type="button" id="btnSelecionarArquivo" style="background:none;border:none;color:var(--primary);text-decoration:underline;cursor:pointer;font-size:inherit;">clique para selecionar</button></p>
+      <p class="small" style="margin-top:12px;">Formatos aceitos: <b>PDF</b> ou <b>Word (.docx)</b></p>
+      <input type="file" id="fileInput" accept=".pdf,.docx" style="display:none;">
+
+      <div class="upload-aviso">
+        🔒 <strong>Privacidade total:</strong> seu arquivo nunca sai do seu navegador.
+        Tudo é processado localmente no seu dispositivo.
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div id="uploadLoading" class="upload-loading" style="display:none;">
+      <div class="spinner"></div>
+      <p>Processando seu contrato...</p>
+    </div>
+
+    <!-- EDITOR -->
+    <div id="editorArea" style="display:none;">
+
+      <div class="editor-toolbar">
+        <button class="btn btn-outline" id="btnCarregarOutro">📤 Carregar outro</button>
+        <button class="btn btn-outline" id="btnDetectarCampos">🔍 Detectar campos editáveis</button>
+        <button class="btn btn-outline" id="btnAbrirSugestoes">💡 Sugestões de cláusulas</button>
+      </div>
+
+      <div class="editor-grid">
+        <div class="editor-painel">
+          <h4>📝 Campos detectados</h4>
+          <p class="small">Clique em um campo para destacá-lo no contrato.</p>
+          <div id="camposDetectados" class="campos-detectados">
+            <p class="aviso-vazio">Clique em "Detectar campos editáveis" para começar.</p>
+          </div>
+        </div>
+
+        <div class="editor-texto-box">
+          <h4>✏️ Seu contrato</h4>
+          <p class="small">Edite diretamente o texto. As alterações são aplicadas em tempo real.</p>
+          <div id="editorTexto" class="editor-texto" contenteditable="true"></div>
+        </div>
+      </div>
+
+      <div class="acoes-resultado" style="margin-top:24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <button class="btn btn-primary btn-lg" id="btnBaixarPDF">📄 Baixar PDF</button>
+        <button class="btn btn-outline btn-lg" id="btnBaixarWord">📝 Baixar Word</button>
+      </div>
+
+      <div class="dica" style="background:#fef3c7; border:1px solid #fbbf24; padding:16px; border-radius:10px; margin-top:24px;">
+        <strong>⚖️ Aviso jurídico:</strong> Esta ferramenta apenas auxilia na edição.
+        Recomendamos revisão por advogado(a) habilitado(a) antes de assinar, especialmente em contratos de alto valor ou complexidade.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section-light">
+  <div class="container">
+    <h2 class="section-title">Como funciona</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Upload</h3>
+        <p>Arraste seu PDF ou Word, ou clique para selecionar.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Edite</h3>
+        <p>O texto aparece num editor visual. Mude o que precisar.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Detecte</h3>
+        <p>Veja CPFs, valores e datas detectados automaticamente.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Baixe</h3>
+        <p>Salve em PDF ou Word, pronto para imprimir e assinar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL DE SUGESTÕES -->
+<div id="modalSugestoes" class="modal-overlay">
+  <div class="modal-conteudo">
+    <button class="modal-fechar" id="btnFecharSugestoes">×</button>
+    <h3 style="margin:0 0 4px;">💡 Sugestões de cláusulas</h3>
+    <p class="small" style="margin:0;">Clique em "+ Inserir" para adicionar a cláusula ao fim do seu contrato.</p>
+
+    <div class="sugestoes-lista" id="sugestoesLista"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© <span id="ano"></span> Contratos Fácil — Modelos jurídicos automatizados</p>
+    <p class="small">
+      ⚖️ Este site oferece modelos automatizados para preenchimento. Não constitui consultoria jurídica.
+      Para casos específicos, consulte um(a) advogado(a) habilitado(a).
+    </p>
+    <p class="small" style="margin-top:12px;">
+      <a href="privacidade.html" style="color:#fff; opacity:0.8;">Política de Privacidade</a> ·
+      <a href="termos.html" style="color:#fff; opacity:0.8;">Termos de Uso</a> ·
+      <a href="contato.html" style="color:#fff; opacity:0.8;">Contato</a>
+    </p>
+  </div>
+</footer>
+
+<!-- BIBLIOTECAS para extrair texto de PDF e Word, e gerar PDF/Word -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+
+<!-- Scripts do site -->
+<script src="js/utils.js"></script>
+<script src="js/editar.js"></script>
+<script src="js/cookies.js"></script>
+<script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
+
+</body>
+</html>
